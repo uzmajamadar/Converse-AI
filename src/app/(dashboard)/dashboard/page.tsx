@@ -17,9 +17,8 @@ import { TransactionsIcon } from '@/icons/transactions-icon'
 import { DollarSign } from 'lucide-react'
 import React from 'react'
 
-type Props = {}
-
-const Page = async (props: Props) => {
+// ✅ No need to define Props if not using props
+const Page = async () => {
   const clients = await getUserClients()
   const sales = await getUserBalance()
   const bookings = await getUserAppointments()
@@ -40,7 +39,7 @@ const Page = async (props: Props) => {
           <DashboardCard
             value={products! * clients! || 0}
             sales
-            title="Pipline Value"
+            title="Pipeline Value"
             icon={<DollarSign />}
           />
           <DashboardCard

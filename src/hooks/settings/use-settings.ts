@@ -29,7 +29,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { UploadClient } from '@uploadcare/upload-client'
 import { useTheme } from 'next-themes'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 const upload = new UploadClient({
@@ -183,18 +183,18 @@ export const useHelpDesk = (id: string) => {
     }
   })
 
-  const onGetQuestions = async () => {
+  const onGetQuestions = useCallback(async () => {
     setLoading(true)
     const questions = await onGetAllHelpDeskQuestions(id)
     if (questions) {
       setIsQuestions(questions.questions)
       setLoading(false)
     }
-  }
+  }, [id])
 
   useEffect(() => {
     onGetQuestions()
-  }, [])
+  }, [onGetQuestions])
 
   return {
     register,
@@ -234,62 +234,66 @@ export const useFilterQuestions = (id: string) => {
     }
   })
 
-  const onGetQuestions = async () => {
+  const onGetQuestions = useCallback(async () => {
     setLoading(true)
     const questions = await onGetAllFilterQuestions(id)
     if (questions) {
       setIsQuestions(questions.questions)
       setLoading(false)
     }
-  }
+  }, [id])
 
   useEffect(() => {
     onGetQuestions()
-  }, [])
+  }, [onGetQuestions])
 
   return {
-    loading,
-    onAddFilterQuestions,
     register,
+    onAddFilterQuestions,
     errors,
     isQuestions,
+    loading,
   }
 }
 
-export const useProducts = (domainId: string) => {
-  const { toast } = useToast()
-  const [loading, setLoading] = useState<boolean>(false)
+export const useAddProduct = (id: string) => {
   const {
     register,
-    reset,
-    formState: { errors },
     handleSubmit,
+    formState: { errors },
+    reset,
   } = useForm<AddProductProps>({
     resolver: zodResolver(AddProductSchema),
   })
+  const { toast } = useToast()
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const onCreateNewProduct = handleSubmit(async (values) => {
-    try {
-      setLoading(true)
+  const onAddProduct = handleSubmit(async (values) => {
+    setLoading(true)
+    if (values.image[0]) {
       const uploaded = await upload.uploadFile(values.image[0])
-      const product = await onCreateNewDomainProduct(
-        domainId,
-        values.name,
-        uploaded.uuid,
-        values.price
-      )
+      const product = await onCreateNewDomainProduct(id, values.name, uploaded.uuid, values.price)
       if (product) {
-        reset()
         toast({
-          title: 'Success',
+          title: product.status == 200 ? 'Success' : 'Error',
           description: product.message,
         })
         setLoading(false)
+        reset()
       }
-    } catch (error) {
-      console.log(error)
     }
   })
 
-  return { onCreateNewProduct, register, errors, loading }
+  return {
+    register,
+    onAddProduct,
+    errors,
+    loading,
+  }
+}
+
+// Stub for useProducts to prevent import error. Replace with real logic if needed.
+export const useProducts = () => {
+  // TODO: Implement product logic or remove this export if not needed.
+  return {};
 }

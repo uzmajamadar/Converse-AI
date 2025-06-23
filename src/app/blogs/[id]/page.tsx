@@ -4,9 +4,10 @@ import { getMonthName } from '@/lib/utils'
 import parse from 'html-react-parser'
 import React from 'react'
 
-type Props = { params: { id: string } }
+type Props = { params: Promise<{ id: string }> }
 
-const PostPage = async ({ params }: Props) => {
+const PostPage = async (props: Props) => {
+  const params = await props.params
   const post = await onGetBlogPost(params.id)
   console.log(parse(post?.content))
   return (

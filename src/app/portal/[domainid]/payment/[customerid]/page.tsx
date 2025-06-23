@@ -1,16 +1,19 @@
 import {
   onDomainCustomerResponses,
-  onGetAllDomainBookings,
 } from '@/actions/appointment'
 import { onGetDomainProductsAndConnectedAccountId } from '@/actions/payments'
 import PortalForm from '@/components/forms/portal/portal-form'
 import React from 'react'
 
-const CustomerPaymentPage = async (props: {
-  params: { domainid: string; customerid: string }
-}) => {
-  const { params } = await props
-  const { domainid, customerid } = params
+type PagePropsWithParams<T> = {
+  params: Promise<T>
+}
+
+export default async function CustomerPaymentPage({
+  params,
+}: PagePropsWithParams<{ domainid: string; customerid: string }>) {
+  const { domainid, customerid } = await params
+
   const questions = await onDomainCustomerResponses(customerid)
   const products = await onGetDomainProductsAndConnectedAccountId(domainid)
 
@@ -30,4 +33,5 @@ const CustomerPaymentPage = async (props: {
   )
 }
 
-export default CustomerPaymentPage
+
+

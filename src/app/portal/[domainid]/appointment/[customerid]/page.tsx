@@ -5,9 +5,10 @@ import {
 import PortalForm from '@/components/forms/portal/portal-form'
 import React from 'react'
 
-type Props = { params: { domainid: string; customerid: string } }
+type Props = { params: Promise<{ domainid: string; customerid: string }> }
 
-const CustomerSignUpForm = async ({ params }: Props) => {
+const CustomerSignUpForm = async (props: Props) => {
+  const params = await props.params
   const questions = await onDomainCustomerResponses(params.customerid)
   const bookings = await onGetAllDomainBookings(params.domainid)
 

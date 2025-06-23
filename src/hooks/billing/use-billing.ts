@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import {
   onCreateCustomerPaymentIntentSecret,
   onGetStripeClientSecret,
@@ -37,7 +37,7 @@ export const useStripeCustomer = (amount: number, stripeId: string) => {
   const [stripeSecret, setStripeSecret] = useState<string>('')
   const [loadForm, setLoadForm] = useState<boolean>(false)
 
-  const onGetCustomerIntent = async (amount: number) => {
+  const onGetCustomerIntent = useCallback(async (amount: number) => {
     try {
       setLoadForm(true)
       const intent = await onCreateCustomerPaymentIntentSecret(amount, stripeId)
@@ -48,11 +48,11 @@ export const useStripeCustomer = (amount: number, stripeId: string) => {
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [stripeId])
 
   useEffect(() => {
     onGetCustomerIntent(amount)
-  }, [])
+  }, [amount, onGetCustomerIntent])
 
   return { stripeSecret, loadForm }
 }
@@ -140,7 +140,7 @@ export const useStripeElements = (payment: 'STANDARD' | 'PRO' | 'ULTIMATE') => {
   const [stripeSecret, setStripeSecret] = useState<string>('')
   const [loadForm, setLoadForm] = useState<boolean>(false)
 
-  const onGetBillingIntent = async (plans: 'STANDARD' | 'PRO' | 'ULTIMATE') => {
+  const onGetBillingIntent = useCallback(async (plans: 'STANDARD' | 'PRO' | 'ULTIMATE') => {
     try {
       setLoadForm(true)
       const intent = await onGetStripeClientSecret(plans)
@@ -151,11 +151,11 @@ export const useStripeElements = (payment: 'STANDARD' | 'PRO' | 'ULTIMATE') => {
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [])
 
   useEffect(() => {
     onGetBillingIntent(payment)
-  }, [payment])
+  }, [payment, onGetBillingIntent])
 
   return { stripeSecret, loadForm }
 }

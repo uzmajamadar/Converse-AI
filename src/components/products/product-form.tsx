@@ -1,28 +1,26 @@
 'use client'
 
 import React from 'react'
-
 import { Button } from '@/components/ui/button'
-
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-
 import { ErrorMessage } from '@hookform/error-message'
 import { Loader } from '@/components/loader'
 import FormGenerator from '../forms/form-generator'
 import { UploadIcon } from 'lucide-react'
-import { useProducts } from '@/hooks/settings/use-settings'
+import { useAddProduct } from '@/hooks/settings/use-settings'
 
 type CreateProductFormProps = {
   id: string
 }
 
 export const CreateProductForm = ({ id }: CreateProductFormProps) => {
-  const { onCreateNewProduct, register, errors, loading } = useProducts(id)
+  const { onAddProduct, register, errors, loading } = useAddProduct(id)
+
   return (
     <form
       className="mt-3 w-full flex flex-col gap-5 py-10"
-      onSubmit={onCreateNewProduct}
+      onSubmit={onAddProduct}
     >
       <FormGenerator
         inputType="input"
@@ -33,6 +31,7 @@ export const CreateProductForm = ({ id }: CreateProductFormProps) => {
         placeholder="Your product name"
         type="text"
       />
+
       <div className="flex flex-col items-start">
         <Label
           htmlFor="upload-product"
@@ -57,6 +56,7 @@ export const CreateProductForm = ({ id }: CreateProductFormProps) => {
           )}
         />
       </div>
+
       <FormGenerator
         inputType="input"
         register={register}
@@ -66,10 +66,8 @@ export const CreateProductForm = ({ id }: CreateProductFormProps) => {
         placeholder="0.00"
         type="text"
       />
-      <Button
-        type="submit"
-        className="w-full"
-      >
+
+      <Button type="submit" className="w-full">
         <Loader loading={loading}>Create Product</Loader>
       </Button>
     </form>
