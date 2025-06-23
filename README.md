@@ -25,29 +25,27 @@ Converse AI is an AI-powered web application designed to streamline business ope
 
 ## 📸 Screenshots
 
-<h3 align="center">Landing Page</h3>
+![Screenshot 2025-06-22 135300](https://github.com/user-attachments/assets/4605ff58-7cab-40c9-82a2-bee28270966c)
+![Screenshot 2025-06-22 135337](https://github.com/user-attachments/assets/1852a60f-cf5c-4ebf-abd2-a0dd44c4b286)
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/f6294a95-981b-4bbc-9909-3d750549d570" width="700"/>
-</p>
+<h2 align="center">Landing Page</h2>
 
-<h3 align="center">Sign-In Page</h3>
+![Screenshot 2025-06-22 140617](https://github.com/user-attachments/assets/f6294a95-981b-4bbc-9909-3d750549d570)
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/5606fc6b-349b-470d-b492-905911bd24ff" width="700"/>
-</p>
+<h2 align="center">Sign Page</h2>
 
-<h3 align="center">Dashboard</h3>
+![Screenshot 2025-06-22 140352](https://github.com/user-attachments/assets/5606fc6b-349b-470d-b492-905911bd24ff)
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/2c387129-285d-404b-8205-7d2c00a7440e" width="700"/>
-</p>
+<h2 align="center">Dashboard</h2>
 
-<h3 align="center">AI Chatbot</h3>
+![Screenshot 2025-06-22 212423](https://github.com/user-attachments/assets/2c387129-285d-404b-8205-7d2c00a7440e)
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/85fd6c56-6c75-4953-91d2-e0b28df5b398" width="700"/>
-</p>
+<h2 align="center"> AI Chatbot</h2>
+
+![app-ui](https://github.com/user-attachments/assets/85fd6c56-6c75-4953-91d2-e0b28df5b398)
+
+<h2 align="center">Dashboard</h2>
+
 
 ---
 
