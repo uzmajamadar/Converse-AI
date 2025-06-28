@@ -55,7 +55,7 @@ Converse AI is an AI-powered web application designed to streamline business ope
 
 ```bash
 git clone <your-repo-url>
-cd corinna-ai-main
+cd converse-ai-main
 ```
 
 ---
